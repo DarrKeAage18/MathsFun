@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "esbuild src/main.ts --bundle --outfile=public/bundle.js --sourcemap",
-    "dev": "esbuild src/main.ts --bundle --outfile=public/bundle.js --sourcemap --watch",
-    "serve": "serve ."
+    "build": "mkdir -p public && cp index.html public/ && cp -r styles public/ && esbuild src/main.ts --bundle --outfile=public/bundle.js --sourcemap",
+    "dev": "mkdir -p public && cp index.html public/ && cp -r styles public/ && esbuild src/main.ts --bundle --outfile=public/bundle.js --sourcemap --watch",
+    "serve": "serve public"
   },
   "devDependencies": {
     "esbuild": "^0.25.0",

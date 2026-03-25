@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "esbuild src/main.ts --bundle --outfile=dist/bundle.js --sourcemap",
-    "dev": "esbuild src/main.ts --bundle --outfile=dist/bundle.js --sourcemap --watch",
+    "build": "esbuild src/main.ts --bundle --outfile=public/bundle.js --sourcemap",
+    "dev": "esbuild src/main.ts --bundle --outfile=public/bundle.js --sourcemap --watch",
     "serve": "serve ."
   },
   "devDependencies": {

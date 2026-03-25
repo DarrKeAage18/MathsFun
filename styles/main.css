@@ -1,0 +1,370 @@
+/* ── Reset & base ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --c1: #FF6B6B;
+  --c2: #FFD93D;
+  --c3: #6BCB77;
+  --c4: #4D96FF;
+  --c5: #C77DFF;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(145deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #533483 100%);
+  font-family: 'Nunito', sans-serif;
+  overflow-x: hidden;
+  padding: 24px 16px 60px;
+}
+
+/* ── Floating background shapes ───────────────── */
+.bg-layer {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  animation: rise linear infinite;
+}
+@keyframes rise {
+  0%   { transform: translateY(110vh) rotate(0deg) scale(1); }
+  100% { transform: translateY(-120px) rotate(720deg) scale(1.2); }
+}
+
+.math-symbol {
+  position: absolute;
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: rgba(255,255,255,0.06);
+  animation: drift linear infinite;
+  user-select: none;
+}
+@keyframes drift {
+  0%   { transform: translateY(110vh) rotate(-15deg); }
+  100% { transform: translateY(-120px) rotate(25deg); }
+}
+
+/* ── Layout ───────────────────────────────────── */
+.container {
+  position: relative; z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Header ───────────────────────────────────── */
+.header {
+  text-align: center;
+  padding: 10px 0 32px;
+}
+.title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 40%, #C77DFF 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.4));
+  animation: bounceTitle 3s ease-in-out infinite;
+}
+@keyframes bounceTitle {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-10px) rotate(1deg); }
+}
+.stars-row {
+  font-size: 1.8rem;
+  margin-top: 6px;
+  animation: twinkle 2s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.15); }
+}
+
+/* ── Controls card ────────────────────────────── */
+.controls {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  border-radius: 24px;
+  padding: 22px 32px;
+  border: 1.5px solid rgba(255,255,255,0.18);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.label {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.85);
+}
+
+/* Select ─────────────────────────── */
+.select-wrap { position: relative; }
+.op-select {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.15rem;
+  padding: 12px 48px 12px 22px;
+  border-radius: 50px;
+  border: 3px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.95);
+  color: #533483;
+  cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  outline: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: transform .25s, box-shadow .25s;
+}
+.op-select:hover  { transform: scale(1.05); box-shadow: 0 6px 24px rgba(0,0,0,0.3); }
+.select-arrow {
+  position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+  pointer-events: none; font-size: .9rem; color: #533483;
+}
+
+/* Buttons ────────────────────────── */
+.btn {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.15rem;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  transition: transform .25s, box-shadow .25s;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.95) !important; }
+
+.btn-generate {
+  background: linear-gradient(135deg, #FFD93D 0%, #FF6B6B 100%);
+  animation: glowPulse 2.2s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 4px 18px rgba(255,107,107,0.4); }
+  50%      { box-shadow: 0 4px 32px rgba(255,107,107,0.8), 0 0 40px rgba(255,217,61,0.4); }
+}
+.btn-generate:hover { transform: scale(1.1) rotate(-2deg); animation: none; }
+
+.btn-check {
+  background: linear-gradient(135deg, #6BCB77 0%, #4D96FF 100%);
+  display: none;
+}
+.btn-check:hover { transform: scale(1.1) rotate(2deg); }
+.btn-check.visible { display: inline-block; }
+
+.btn-reset {
+  background: linear-gradient(135deg, #C77DFF 0%, #4D96FF 100%);
+  display: none;
+}
+.btn-reset:hover { transform: scale(1.08); }
+.btn-reset.visible { display: inline-block; }
+
+/* ── Score banner ─────────────────────────────── */
+.score-banner {
+  display: none;
+  text-align: center;
+  margin-bottom: 28px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 18px 24px;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  animation: popIn .5s cubic-bezier(.175,.885,.32,1.275);
+}
+.score-banner.visible { display: block; }
+.score-text {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  color: white;
+}
+.score-emoji { font-size: 2rem; vertical-align: middle; }
+
+/* ── Problems grid ────────────────────────────── */
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) {
+  .problems-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 580px) {
+  .problems-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── Problem card ─────────────────────────────── */
+.problem-card {
+  background: white;
+  border-radius: 22px;
+  padding: 20px 16px 18px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  position: relative;
+  overflow: hidden;
+  border-top: 6px solid var(--accent);
+  animation: popIn .45s cubic-bezier(.175,.885,.32,1.275) both;
+  transition: transform .25s, box-shadow .25s;
+}
+.problem-card:hover:not(.checked) {
+  transform: translateY(-6px) rotate(0.5deg);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.22);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.7) rotate(-3deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* Coloured corner blob */
+.card-blob {
+  position: absolute;
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.1;
+  top: -20px; right: -20px;
+}
+
+.card-num {
+  font-family: 'Fredoka One', cursive;
+  font-size: .82rem;
+  color: var(--accent);
+  opacity: .75;
+  margin-bottom: 10px;
+}
+
+/* Math vertical layout */
+.math-block {
+  width: 100%;
+}
+.math-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  color: #2d2d2d;
+  line-height: 1.25;
+}
+.math-row.op-row {
+  justify-content: space-between;
+}
+.op-sign {
+  color: var(--accent);
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+}
+.dashed-sep {
+  border: none;
+  border-top: 3px dashed #d0d0d0;
+  margin: 10px 0 10px;
+}
+.answer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+.answer-input {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  width: 100%;
+  text-align: right;
+  border: none;
+  border-bottom: 3px solid #e0e0e0;
+  outline: none;
+  color: #333;
+  background: transparent;
+  transition: border-color .25s;
+  padding: 2px 2px 4px;
+}
+.answer-input:focus { border-bottom-color: var(--accent); }
+/* hide number spinners */
+.answer-input::-webkit-outer-spin-button,
+.answer-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.answer-input[type=number] { -moz-appearance: textfield; }
+
+/* ── Checked states ───────────────────────────── */
+.problem-card.correct {
+  background: linear-gradient(145deg, #f0fff4, #e3ffeb);
+  border-top-color: #6BCB77 !important;
+}
+.problem-card.incorrect {
+  background: linear-gradient(145deg, #fff5f5, #ffe0e0);
+  border-top-color: #FF6B6B !important;
+}
+.result-badge {
+  position: absolute; top: 10px; right: 12px;
+  font-size: 1.4rem;
+  display: none;
+}
+.problem-card.correct  .result-badge { display: block; }
+.problem-card.incorrect .result-badge { display: block; }
+.correct-answer {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  color: #FF6B6B;
+  text-align: right;
+  margin-top: 4px;
+  display: none;
+}
+.problem-card.incorrect .correct-answer { display: block; }
+
+/* ── Confetti ─────────────────────────────────── */
+#confetti-layer {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 999;
+}
+.cf {
+  position: absolute;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  animation: cfFall linear forwards;
+}
+@keyframes cfFall {
+  0%   { transform: translateY(-30px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── Empty state ──────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
+}
+.empty-icon { font-size: 4rem; display: block; margin-bottom: 12px; animation: bounceTitle 3s ease-in-out infinite; }
+
+/* ── "checked" input lock ─────────────────────── */
+.problem-card.checked .answer-input { pointer-events: none; }
+.problem-card.checked .carry-input  { pointer-events: none; }
+
+/* ── Carry boxes ──────────────────────────────── */
+.carry-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.carry-input {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(0.75rem, 1.8vw, 1rem);
+  width: 1.8em;
+  height: 1.8em;
+  text-align: center;
+  border: 2px dashed #c0c0c0;
+  border-radius: 6px;
+  outline: none;
+  color: #e05252;
+  background: #fff9f9;
+  transition: border-color .2s, background .2s;
+  padding: 0;
+}
+.carry-input:focus {
+  border-color: var(--accent);
+  background: #fff;
+}

@@ -287,6 +287,51 @@ body {
 .answer-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .answer-input[type=number] { -moz-appearance: textfield; }
 
+/* ── Unanswered shake ─────────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+.answer-input.unanswered {
+  border-bottom-color: #FF6B6B;
+  animation: shake .4s ease;
+}
+
+/* ── Math grid (column-aligned carry + digits) ── */
+.math-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--math-cols, 3), 1fr);
+  align-items: center;
+  row-gap: 2px;
+  width: 100%;
+}
+
+/* Elements that span all columns */
+.math-grid-full {
+  grid-column: 1 / -1;
+}
+
+/* Individual digit cells */
+.digit-cell {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: #2d2d2d;
+  text-align: center;
+  line-height: 1.4;
+  min-width: 0; /* allow shrink in tight grids */
+}
+.digit-cell.op-sign {
+  color: var(--accent);
+}
+
+/* Carry inputs inside the grid — fill their column */
+.math-grid .carry-input {
+  width: 70%;
+  max-width: 2em;
+  justify-self: center;
+}
+
 /* ── Checked states ───────────────────────────── */
 .problem-card.correct {
   background: linear-gradient(145deg, #f0fff4, #e3ffeb);

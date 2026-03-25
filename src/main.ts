@@ -29,6 +29,23 @@ function updateStatsUI(): void {
 
 function checkAnswers(): void {
   const total = currentProblems.length;
+
+  // Guard: every answer box must be filled before submitting
+  let allAnswered = true;
+  currentProblems.forEach((_, idx) => {
+    const inp = document.getElementById(`ans-${idx}`) as HTMLInputElement | null;
+    if (!inp || inp.value.trim() === '') {
+      allAnswered = false;
+      if (inp) {
+        // Re-trigger shake by removing and re-adding the class
+        inp.classList.remove('unanswered');
+        void inp.offsetWidth; // force reflow
+        inp.classList.add('unanswered');
+      }
+    }
+  });
+  if (!allAnswered) return;
+
   let correct = 0;
 
   currentProblems.forEach((p, idx) => {
@@ -145,6 +162,14 @@ function init(): void {
 
     currentProblems = operator.generateSet(carry, config.digits);
     renderProblems(currentProblems, 'problemsGrid');
+
+    // Clear unanswered highlight as user types
+    currentProblems.forEach((_, idx) => {
+      document.getElementById(`ans-${idx}`)
+        ?.addEventListener('input', () =>
+          document.getElementById(`ans-${idx}`)?.classList.remove('unanswered')
+        );
+    });
     document.getElementById('scoreBanner')?.classList.remove('visible');
     document.getElementById('btnCheck')?.classList.add('visible');
     document.getElementById('btnReset')?.classList.remove('visible');

@@ -15,12 +15,31 @@
 <!-- Confetti container -->
 <div id="confetti-layer"></div>
 
+<!-- Name modal -->
+<div class="name-modal-overlay" id="nameModal">
+  <div class="name-modal-card">
+    <div class="name-modal-emoji">🧮</div>
+    <h2 class="name-modal-title">Welcome to Math Fun!</h2>
+    <p class="name-modal-sub">What's your name, math star? ⭐</p>
+    <input type="text" id="nameInput" class="name-modal-input" placeholder="Enter your name…" maxlength="20" />
+    <button class="btn btn-generate" id="btnStartGame">Let's Go! 🚀</button>
+  </div>
+</div>
+
 <div class="container">
 
   <!-- Header -->
   <header class="header">
     <div class="title">Math Fun!</div>
     <div class="stars-row">⭐ 🧮 ⭐</div>
+
+    <div class="player-stats" id="playerStats">
+      <div class="player-name" id="playerNameDisplay"></div>
+      <div class="trophy-badge">
+        🏆 <span id="pointsDisplay">0</span> pts
+      </div>
+      <div class="level-chip" id="levelChip">Level 1</div>
+    </div>
   </header>
 
   <!-- Controls -->
@@ -35,15 +54,16 @@
       <span class="select-arrow">▼</span>
     </div>
 
-    <span class="label">Digits:</span>
-
-    <div class="select-wrap">
-      <select class="op-select" id="digitsSelect">
-        <option value="2">2️⃣ 2 digits</option>
-        <option value="3">3️⃣ 3 digits</option>
-        <option value="4">4️⃣ 4 digits</option>
-      </select>
-      <span class="select-arrow">▼</span>
+    <!-- Digits selector — hidden, controlled by level system -->
+    <div id="digitsControl" style="display:none">
+      <div class="select-wrap">
+        <select class="op-select" id="digitsSelect">
+          <option value="2">2️⃣ 2 digits</option>
+          <option value="3">3️⃣ 3 digits</option>
+          <option value="4">4️⃣ 4 digits</option>
+        </select>
+        <span class="select-arrow">▼</span>
+      </div>
     </div>
 
     <span class="label">Carry / Borrow:</span>
@@ -55,6 +75,10 @@
         <option value="without">🚫 Without carry</option>
       </select>
       <span class="select-arrow">▼</span>
+    </div>
+
+    <div class="level-badge-control" id="levelBadgeControl">
+      📊 Level <span id="levelNum">1</span>
     </div>
 
     <button class="btn btn-generate" id="btnGenerate">🎲 Generate!</button>

@@ -368,3 +368,118 @@ body {
   border-color: var(--accent);
   background: #fff;
 }
+
+/* ── Name modal ───────────────────────────────── */
+.name-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+.name-modal-overlay.visible { display: flex; }
+
+.name-modal-card {
+  background: white;
+  border-radius: 32px;
+  padding: 48px 40px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  animation: popIn .45s cubic-bezier(.175,.885,.32,1.275);
+}
+.name-modal-emoji { font-size: 4rem; margin-bottom: 12px; }
+.name-modal-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2rem;
+  color: #533483;
+  margin-bottom: 8px;
+}
+.name-modal-sub { font-size: 1.1rem; color: #666; margin-bottom: 24px; }
+.name-modal-input {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 50px;
+  border: 3px solid #C77DFF;
+  outline: none;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  transition: border-color .25s;
+}
+.name-modal-input:focus { border-color: #533483; }
+
+/* ── Player stats (top-right of header) ───────── */
+.header { position: relative; }
+
+.player-stats {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.player-name {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.9);
+}
+.trophy-badge {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.15rem;
+  background: rgba(255,215,0,0.18);
+  border: 2px solid rgba(255,215,0,0.5);
+  border-radius: 30px;
+  padding: 6px 16px;
+  color: #FFD93D;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform .2s;
+}
+.trophy-badge:hover { transform: scale(1.05); }
+.level-chip {
+  font-family: 'Fredoka One', cursive;
+  font-size: 0.9rem;
+  background: rgba(77,150,255,0.2);
+  border: 2px solid rgba(77,150,255,0.5);
+  border-radius: 20px;
+  padding: 4px 14px;
+  color: #4D96FF;
+}
+
+/* ── Level badge in controls ──────────────────── */
+.level-badge-control {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.15rem;
+  padding: 12px 22px;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.9);
+  border: 2px solid rgba(255,255,255,0.25);
+  white-space: nowrap;
+}
+
+/* ── Score extras ─────────────────────────────── */
+.score-points {
+  display: block;
+  font-size: 1.15rem;
+  color: #FFD93D;
+  margin-top: 8px;
+}
+.score-levelup {
+  display: block;
+  font-size: 1.2rem;
+  color: #6BCB77;
+  margin-top: 6px;
+  animation: bounceTitle .8s ease-in-out;
+}
